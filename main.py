@@ -20,6 +20,17 @@ class Phone(Field):
     def is_valid(self, value):
         return len(str(value)) == 10 and str(value).isdigit()
 
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        if self.is_valid(new_value):
+            self._value = new_value
+        else:
+            raise ValueError("Invalid phone number")
+
 class Birthday(Field):
     def is_valid(self, value):
         try:
@@ -27,6 +38,17 @@ class Birthday(Field):
             return True
         except ValueError:
             return False
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        if self.is_valid(new_value):
+            self._value = new_value
+        else:
+            raise ValueError("Invalid date format")
 
 class Record:
     def __init__(self, name, birthday=None):
